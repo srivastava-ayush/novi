@@ -109,7 +109,7 @@ export default function Hero() {
               </div>
             </div>
 
-            <div className="relative order-1 lg:order-2 animate-slide-in-right opacity-0 delay-200">
+            <div className="relative order-1 lg:order-2 animate-pop-in opacity-0 delay-300">
               <div className="relative w-full aspect-square max-w-[600px] mx-auto">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 blur-3xl animate-pulse-glow" />
 
