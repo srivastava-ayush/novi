@@ -1,202 +1,235 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 const painPoints = [
   "Not sure what career you want?",
   "Don't know which subjects to choose?",
   "Wondering which university is right for you?",
   "Don't know how to build a strong profile?",
-];
+]; 
 
 const features = [
   {
+    number: "01",
     title: "Discover",
-    desc: "Find careers and possibilities you didn't know existed.",
-    color: "text-primary bg-primary/10",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-      </svg>
-    ),
+    desc: "Understand your interests, strengths and the possibilities that match you.",
+    icon: "✦",
   },
   {
+    number: "02",
     title: "Plan",
-    desc: "Understand which subjects, skills and experiences can move you towards your goals.",
-    color: "text-accent bg-accent/10",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" />
-      </svg>
-    ),
+    desc: "Turn your goals into a clear roadmap of subjects, skills and experiences.",
+    icon: "⌁",
   },
   {
+    number: "03",
     title: "Build",
-    desc: "Turn your interests into projects, achievements and experiences that matter.",
-    color: "text-accent-warm bg-accent-warm/10",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.1-5.1m0 0L11.42 4.97m-5.1 5.1H21M3 3v18" />
-      </svg>
-    ),
+    desc: "Create projects and experiences that give your interests real-world meaning.",
+    icon: "↗",
   },
   {
+    number: "04",
     title: "Explore",
-    desc: "Discover universities, courses and opportunities around the world.",
-    color: "text-primary bg-primary/10",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" />
-      </svg>
-    ),
+    desc: "Compare careers, universities, courses and opportunities without the overwhelm.",
+    icon: "◎",
   },
   {
+    number: "05",
     title: "Grow",
-    desc: "Get personalized goals and guidance every week.",
-    color: "text-accent bg-accent/10",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" />
-      </svg>
-    ),
+    desc: "Get ongoing guidance as your interests and goals evolve.",
+    icon: "↑",
   },
 ];
 
+
 export default function ForStudents() {
   return (
-    <section className="py-24 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section id="for-students" className="relative py-28 px-6 overflow-hidden">
+      <div className="absolute top-1/3 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-12 mb-28 scroll-reveal">
-          <div className="flex-1 w-full text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mb-6">
-              <span className="text-[11px] font-semibold text-primary uppercase tracking-widest">
-                For Students
-              </span>
-            </div>
+      <div className="max-w-7xl mx-auto relative z-10">
+
+        
+        <div className="grid lg:grid-cols-[1fr_0.75fr] gap-14 items-center mb-28 scroll-reveal">
+
+          <div>
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/15 text-accent text-[11px] font-bold uppercase tracking-[0.18em] mb-6">
+              For Students
+            </span>
+
             <h2
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.08] tracking-tight mb-6"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight mb-6"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Your future is too important to figure out alone.
+              You don&apos;t need
+              <br />
+              <span className="gradient-text">all the answers.</span>
             </h2>
-            <p className="text-lg text-foreground/50 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0">
-              Meet Novi—the AI mentor that grows with you from Grade 9 to your dream university.
+
+            <p className="text-lg text-foreground/50 leading-relaxed max-w-xl mb-8">
+              You just need a place to ask questions, explore possibilities
+              and figure things out without feeling like you&apos;re already
+              supposed to know everything.
             </p>
+
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <a href="#" className="btn-primary">
-                <span>Meet Novi</span>
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-              <a href="#" className="btn-secondary">
-                See how it works
-              </a>
+                <Link href="/careers" className="btn-primary group">
+                  <span>Discover Careers</span>
+
+                  <svg
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </Link>
+
+                <Link href="#how-it-works" className="btn-secondary">
+                  See how it works
+                </Link>
             </div>
           </div>
 
-          <div className="relative w-full max-w-[360px] shrink-0 mx-auto lg:mx-0 hover:scale-105 transition-transform duration-500">
-            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary/15 to-accent/15 blur-3xl animate-pulse-glow" />
-            <Image
-              src="/3dboyconfuesed.png"
-              alt="Confused student wondering about their future"
-              width={400}
-              height={400}
-              className="relative w-full h-auto object-contain"
-              priority
-            />
+          
+          <div className="relative max-w-[420px] w-full mx-auto lg:ml-auto">
+            <div className="absolute inset-10 rounded-full bg-primary/10 blur-3xl animate-pulse-glow" />
+
+            <div className="relative rounded-[2rem] border border-black/5 dark:border-white/5 bg-gradient-to-br from-primary/5 to-accent/5 p-8 overflow-hidden">
+              <div className="absolute top-5 right-5 w-3 h-3 rounded-full bg-primary/50 animate-pulse" />
+              <div className="absolute bottom-10 left-5 w-2 h-2 rounded-full bg-accent/60 animate-pulse" />
+
+              <Image
+                src="/3dboyconfuesed.png"
+                alt="Student exploring their future"
+                width={420}
+                height={420}
+                className="relative w-full h-auto object-contain hover:scale-[1.03] transition-transform duration-700"
+              />
+
+              <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 dark:border-white/10 bg-background/70 backdrop-blur-xl p-4 shadow-xl">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+                    ✦
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold">It&apos;s okay not to know yet.</p>
+                    <p className="text-[11px] text-foreground/40">
+                      Start with one question.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="rounded-3xl border border-black/5 dark:border-white/5 overflow-hidden mb-28 scroll-reveal-scale">
-          <div className="bg-gradient-to-br from-primary/5 via-background to-accent/5 p-10 sm:p-14">
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-              <div>
-                <h3
-                  className="text-3xl sm:text-4xl font-bold tracking-tight mb-4"
-                  style={{ fontFamily: "var(--font-display)" }}
-                >
-                  You don&apos;t need all the answers.
-                </h3>
-                <p className="text-foreground/45 max-w-md leading-relaxed">
-                  Every student asks the same questions. Novi was built for them.
+        
+        <div className="rounded-3xl border border-black/5 dark:border-white/5 bg-gradient-to-br from-primary/[0.04] via-background to-accent/[0.04] p-8 sm:p-12 mb-28 scroll-reveal-scale">
+
+          <div className="max-w-2xl mb-10">
+            <span className="text-xs uppercase tracking-[0.18em] font-bold text-primary">
+              Sound familiar?
+            </span>
+
+            <h3
+              className="text-3xl sm:text-4xl font-bold mt-3 mb-4"
+              style={{ fontFamily: "var(--font-display)" }}
+            >
+              The questions get bigger as you grow.
+            </h3>
+
+            <p className="text-foreground/45 leading-relaxed">
+              And searching for answers across a hundred different places
+              makes everything feel harder.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-3 mb-8">
+            {painPoints.map((point, index) => (
+              <div
+                key={point}
+                className="group flex items-center gap-4 rounded-2xl border border-black/5 dark:border-white/5 bg-background/60 px-5 py-4 hover:border-primary/20 hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0 text-sm font-bold">
+                  ?
+                </div>
+
+                <p className="text-sm sm:text-base font-medium text-foreground/60 group-hover:text-foreground/80">
+                  {point}
                 </p>
               </div>
-              <span className="hidden lg:block text-7xl font-bold text-foreground/5 select-none" style={{ fontFamily: "var(--font-display)" }}>
-                ?
-              </span>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-4 mb-10 stagger-reveal">
-              {painPoints.map((point) => (
-                <div
-                  key={point}
-                  className="group flex items-center gap-4 rounded-2xl bg-background/60 dark:bg-surface/40 border border-black/5 dark:border-white/5 px-5 py-4 hover:border-primary/25 hover:shadow-lg transition-all duration-300"
-                >
-                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary/20 transition-colors">
-                    <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                    </svg>
-                  </div>
-                  <p className="font-medium text-foreground/70">{point}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-center gap-4 rounded-2xl bg-primary/10 border border-primary/20 px-6 py-5 animate-glow-pulse">
-              <svg className="w-6 h-6 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="text-lg font-bold" style={{ fontFamily: "var(--font-display)" }}>
-                That&apos;s exactly why Novi exists.
-              </p>
-            </div>
+            ))}
           </div>
-        </div>
 
-        <div className="mb-12 flex items-end justify-between gap-6 scroll-reveal">
-          <div>
-            <h3
-              className="text-2xl sm:text-3xl font-bold tracking-tight mb-2"
+          <div className="flex items-center gap-4 rounded-2xl bg-primary/10 border border-primary/15 px-5 py-4">
+            <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+              ✓
+            </div>
+
+            <p
+              className="font-bold"
               style={{ fontFamily: "var(--font-display)" }}
             >
-              Novi helps you...
-            </h3>
-            <p className="text-foreground/45">Five ways Novi works with you, every step of the way.</p>
+              That&apos;s exactly where Novi comes in.
+            </p>
           </div>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 stagger-reveal">
-          {features.map((f, i) => (
-            <div
-              key={f.title}
-              className={`group rounded-2xl border border-black/5 dark:border-white/5 p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-xl hover:-translate-y-0.5 ${
-                i === 4 ? "sm:col-span-2 lg:col-span-1" : ""
-              }`}
+        
+        <div className="mb-10 scroll-reveal">
+          <span className="text-xs uppercase tracking-[0.18em] font-bold text-primary">
+            One mentor. Many roles.
+          </span>
+
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mt-3">
+            <h3
+              className="text-3xl sm:text-4xl font-bold"
+              style={{ fontFamily: "var(--font-display)" }}
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className={`w-12 h-12 rounded-xl ${f.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                  {f.icon}
+              Novi helps you move forward.
+            </h3>
+
+            <p className="text-sm text-foreground/40 max-w-sm">
+              Not by giving you a fixed answer—but by helping you make better
+              decisions.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3 stagger-reveal">
+          {features.map((feature) => (
+            <div
+              key={feature.number}
+              className="group relative rounded-2xl border border-black/5 dark:border-white/5 p-6 min-h-[230px] hover:border-primary/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+            >
+              <div className="flex items-center justify-between mb-8">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center text-lg group-hover:scale-110 transition-transform">
+                  {feature.icon}
                 </div>
-                <svg
-                  className="w-4 h-4 text-foreground/20 group-hover:text-primary group-hover:translate-x-1 transition-all duration-300"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
+
+                <span className="text-[10px] font-bold tracking-widest text-foreground/20">
+                  {feature.number}
+                </span>
               </div>
+
               <h4
-                className="text-base font-bold mb-1.5"
+                className="text-xl font-bold mb-2"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                {f.title}
+                {feature.title}
               </h4>
-              <p className="text-sm text-foreground/45 leading-relaxed">
-                {f.desc}
+
+              <p className="text-sm text-foreground/40 leading-relaxed">
+                {feature.desc}
               </p>
             </div>
           ))}

@@ -1,13 +1,28 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import Hero from "./landing_section/hero";
 import HowItWorks from "./landing_section/how-it-works";
 import ForStudents from "./landing_section/for-students";
 import { useTheme } from "./components/theme-provider";
+import Link from "next/link";
 
 function ThemeToggle() {
   const { theme, toggle } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return (
+      <button
+        className="w-9 h-9 rounded-xl flex items-center justify-center border border-black/10 dark:border-white/10"
+        aria-label="Toggle theme"
+      />
+    );
+  }
 
   return (
     <button
@@ -16,12 +31,32 @@ function ThemeToggle() {
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+          />
         </svg>
       ) : (
-        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"
+          />
         </svg>
       )}
     </button>
@@ -46,41 +81,68 @@ function NavBar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+        {/* LOGO */}
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
             <span className="text-white font-bold text-sm">N</span>
           </div>
+
           <span
             className="text-xl font-bold tracking-tight"
             style={{ fontFamily: "var(--font-display)" }}
           >
             Novi
           </span>
-        </div>
+        </Link>
 
+        {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-8">
-          {["Features", "Journey", "Universities", "Parents"].map((item) => (
-            <a
-              key={item}
-              href="#"
-              className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
-            >
-              {item}
-            </a>
-          ))}
+          <Link
+            href="/#how-it-works"
+            className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            Journey
+          </Link>
+
+          <Link
+            href="/careers"
+            className="text-sm font-medium text-foreground/60 hover:text-primary transition-colors"
+          >
+            Careers
+          </Link>
+
+          <Link
+            href="/#for-students"
+            className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            For Students
+          </Link>
+
+          <Link
+            href="/#parents"
+            className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            Parents
+          </Link>
         </div>
 
+        {/* RIGHT */}
         <div className="flex items-center gap-3">
           <ThemeToggle />
-          <a
-            href="#"
+
+          <Link
+            href="/signin"
             className="hidden sm:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2"
           >
             Sign In
-          </a>
-          <a href="#" className="btn-primary !py-2.5 !px-5 !text-sm">
+          </Link>
+
+          <Link
+            href="/careers"
+            className="btn-primary !py-2.5 !px-5 !text-sm"
+          >
             Get Started
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
