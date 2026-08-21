@@ -5,7 +5,7 @@ import Hero from "./landing_section/hero";
 import HowItWorks from "./landing_section/how-it-works";
 import ForStudents from "./landing_section/for-students";
 import { useTheme } from "./components/theme-provider";
-
+import ComingSoon from "./coming-soon/page";
 function ThemeToggle() {
   const { theme, toggle } = useTheme();
 
@@ -140,15 +140,17 @@ export default function Home() {
   const revealRef = useScrollReveal();
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <LandingCurtain />
-      <div className="mesh-gradient-bg" />
-      <NavBar />
-      <main className="relative z-10" ref={revealRef}>
-        <Hero />
-        <HowItWorks />
-        <ForStudents />
-      </main>
-    </div>
+    // <div className="relative min-h-screen overflow-hidden">
+    //   <LandingCurtain />
+    //   <div className="mesh-gradient-bg" />
+    //   <NavBar />
+    //   <main className="relative z-10" ref={revealRef}>
+    //     <Hero />
+    //     <HowItWorks />
+    //     <ForStudents />
+    //   </main>
+    // </div>
+<ComingSoon/>
+
   );
 }
