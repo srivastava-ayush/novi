@@ -107,20 +107,15 @@ export default function Hero() {
       <FloatingOrb className="w-[300px] h-[300px] bg-accent-warm bottom-[-100px] left-[30%]"/>
 
       <section className="hero-gradient min-h-screen flex flex-col justify-center relative overflow-hidden">
-        {/* Subtle background grid */}
         <div className="absolute inset-0 hero-grid pointer-events-none" />
-
         <div className="max-w-7xl mx-auto px-6 pt-28 pb-16 w-full relative z-10">
           <div className="grid lg:grid-cols-2 gap-14 lg:gap-8 items-center">
             <div className="flex flex-col gap-8 order-2 lg:order-1">
               <div className="inline-flex items-center gap-2 self-start animate-slide-in-left opacity-0">
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm transition-all duration-300 hover:bg-primary/15 hover:border-primary/30 hover:-translate-y-0.5">
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-60 animate-ping" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-                  </span>
 
-                  <span className="text-xs font-semibold text-primary tracking-wide uppercase">
+                <div className="border-none outline-none inline-flex items-center gap-2 px-4 py-2 rounded-full border border-green-800 bg-green-900/20 shadow-[0_0_15px_rgba(74,222,128,0.3)] ">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
+                  <span className="text-xs font-semibold text-green-100 tracking-wide uppercase">
                     AI-Powered Mentorship
                   </span>
                 </div>
@@ -140,13 +135,7 @@ export default function Hero() {
                     Your journey.
                   </span>
 
-                  <span
-                    className="block gradient-text animate-slide-in-left opacity-0 delay-200"
-                    style={{
-                      filter:
-                        "drop-shadow(0 0 18px rgba(108, 92, 231, 0.18))",
-                    }}
-                  >
+                  <span className="block gradient-text">
                     Your future.
                   </span>
                 </h1>
@@ -165,13 +154,11 @@ export default function Hero() {
 
 
               <div className="flex flex-wrap gap-4 animate-slide-in-left opacity-0 delay-500">
-                <Link
-                  href="/careers"
-                  className="btn-primary group"
-                >
-                  <span>Discover Careers</span>
+                <Link 
+                href="#how-it-works" className="btn-primary group">
+                  Meet Novi
                   <ArrowIcon />
-                </Link>
+                 </Link>
                             
                 <Link
                   href="#for-students"
@@ -191,7 +178,7 @@ export default function Hero() {
                     />
                   </svg>
                             
-                  <span>Explore Your Journey</span>
+                  <span>I'm Parent</span>
                 </Link>
               </div>
 
@@ -226,25 +213,9 @@ export default function Hero() {
                 <div className="absolute inset-[18%] rounded-full border border-accent/10 animate-[spin_24s_linear_infinite_reverse]" />
                 <div className="absolute inset-[28%] rounded-full border border-accent-warm/10 animate-[spin_18s_linear_infinite]" />
                 <div className="absolute top-[8%] left-1/2 w-2 h-2 rounded-full bg-primary/50 shadow-[0_0_15px_rgba(108,92,231,0.5)] animate-dot-pulse" />
-
-
-                <div
-                  className="absolute bottom-[20%] right-[10%] w-2 h-2 rounded-full bg-accent/60 shadow-[0_0_15px_rgba(0,206,201,0.5)] animate-dot-pulse"
-                  style={{ animationDelay: "0.7s" }}
-                />
-
-                <div
-                  className="absolute top-[35%] left-[7%] w-1.5 h-1.5 rounded-full bg-accent-warm/60 animate-dot-pulse"
-                  style={{ animationDelay: "1.2s" }}
-                />
-
-                <div
-                  className="relative w-full h-full transition-transform duration-700 ease-out"
-                  style={{
-                    transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`,
-                  }}
-                >
-                  <div className="animate-float w-full h-full group">
+                <div className="relative w-full h-full transition-transform duration-700 ease-out"
+                  style={{ transform: `translate(${mousePosition.x*0.8}px, ${mousePosition.y*0.8}px)`, }}>
+                  <div className="animate-float w-full h-full group scale-90">
                     <Image
                       src="/3dboy.png"
                       alt="Novi — AI Mentor"
@@ -318,7 +289,7 @@ export default function Hero() {
                 )}
 
 
-                <div className="absolute top-[18%] left-[-5px] sm:left-[-20px] animate-float delay-600">
+                <div className="absolute top-[24%] left-[-10px] sm:left-[-20px] animate-float delay-600">
                   <div className="glass-card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:rotate-1 hover:shadow-2xl">
 
                     <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center">
@@ -344,37 +315,6 @@ export default function Hero() {
 
                       <p className="text-[11px] text-foreground/50">
                         Technology + Problem Solving
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="absolute top-[10%] right-[-5px] sm:right-[-15px] animate-float delay-700">
-                  <div className="glass-card rounded-2xl px-4 py-3 flex items-center gap-3 shadow-xl transition-all duration-300 hover:-translate-y-2 hover:-rotate-1 hover:shadow-2xl">
-
-                    <div className="w-9 h-9 rounded-xl bg-green-500/10 flex items-center justify-center">
-                      <svg
-                        className="w-4 h-4 text-green-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2.5}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0"
-                        />
-                      </svg>
-                    </div>
-
-                    <div>
-                      <p className="text-xs font-semibold text-foreground">
-                        Goal updated
-                      </p>
-
-                      <p className="text-[11px] text-foreground/50">
-                        Explore AI careers
                       </p>
                     </div>
                   </div>

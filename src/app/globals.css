@@ -1133,3 +1133,85 @@ a:focus-visible {
     animation: none !important;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   HIGH-LEVEL HOW-IT-WORKS ANIMATIONS
+   ========================================= */
+
+/* 1. Bouncy Entrance */
+@keyframes bounce-in-slow {
+  0% { opacity: 0; transform: translateY(60px) scale(0.9); }
+  60% { opacity: 1; transform: translateY(-10px) scale(1.02); }
+  80% { transform: translateY(2px) scale(0.99); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-bounce-in-slow {
+  animation: bounce-in-slow 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0; /* Start hidden */
+}
+
+/* 2. Animated Background Grid */
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 40px 40px; }
+}
+.cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(108, 92, 231, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(108, 92, 231, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: grid-move 3s linear infinite;
+  mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 70%);
+}
+
+/* 3. 3D Tilt Effect (JS will toggle this class) */
+.tilt-card {
+  transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: 0 20px 40px rgba(108, 92, 231, 0.15);
+}
+
+/* 4. Active Beam Pulse */
+@keyframes beam-pulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.5); }
+}
+.animate-beam {
+  animation: beam-pulse 3s ease-in-out infinite;
+  transform-origin: top;
+}
+
+/* 5. Continuous Icon Orbit */
+@keyframes orbit-rotate {
+  from { transform: rotate(0deg) translateX(10px) rotate(0deg); }
+  to { transform: rotate(360deg) translateX(10px) rotate(-360deg); }
+}
+.animate-orbit {
+  animation: orbit-rotate 8s linear infinite;
+}
+
+/* 6. Shimmering Progress Line */
+@keyframes line-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.animate-line-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(108, 92, 231, 0.8), rgba(0, 206, 201, 0.8), transparent);
+  background-size: 200% 100%;
+  animation: line-shimmer 4s linear infinite;
+}

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Hero from "./landing_section/hero";
 import HowItWorks from "./landing_section/how-it-works";
 import ForStudents from "./landing_section/for-students";
+import AboutUs from "./landing_section/about-us";
 import { useTheme } from "./components/theme-provider";
 import Link from "next/link";
 
@@ -101,16 +102,8 @@ function NavBar() {
             href="/#how-it-works"
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
-            Journey
+            How it Works
           </Link>
-
-          <Link
-            href="/careers"
-            className="text-sm font-medium text-foreground/60 hover:text-primary transition-colors"
-          >
-            Careers
-          </Link>
-
           <Link
             href="/#for-students"
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
@@ -119,10 +112,24 @@ function NavBar() {
           </Link>
 
           <Link
-            href="/#parents"
+            href="/#for-parents"
             className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
           >
-            Parents
+            For Parents
+          </Link>
+
+          <Link
+            href="/#universities"
+            className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            Universities
+          </Link>
+
+          <Link
+            href="/#about-us"
+            className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors"
+          >
+            About Us
           </Link>
         </div>
 
@@ -210,6 +217,7 @@ export default function Home() {
         <Hero />
         <HowItWorks />
         <ForStudents />
+        <AboutUs />
       </main>
     </div>
   );
