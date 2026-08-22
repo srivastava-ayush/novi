@@ -36,30 +36,12 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     setStatus("submitting");
-    
-    try {
-      const formBody = new URLSearchParams();
-      formBody.append("name", formData.name);
-      formBody.append("email", formData.email);
-      formBody.append("role", formData.role);
-
-      await fetch("https://script.google.com/a/macros/hinovi.me/s/AKfycbx0BiwjHoNQI1Kgqi-qFsQO6JeFB5JIRoHi_JFOBjWSbgY7BeJQYVR6VIATBfaqbKgjcw/exec", {
-        method: "POST",
-        mode: "no-cors",
-        body: formBody,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      });
+    // Since we're posting to an iframe, we just wait a bit and show success
+    setTimeout(() => {
       setStatus("success");
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      alert("Something went wrong while joining the waitlist. Please try again.");
-      setStatus("idle");
-    }
+    }, 1500);
   };
 
   return (
@@ -122,73 +104,85 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-1.5">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
-                  placeholder="John Doe"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-1.5">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
-                  placeholder="john@example.com"
-                />
-              </div>
-              
-              <div>
-                <label htmlFor="role" className="block text-sm font-medium text-foreground/80 mb-1.5">
-                  I am a...
-                </label>
-                <select
-                  id="role"
-                  value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all appearance-none"
-                  style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
-                >
-                  <option value="student" className="bg-background text-foreground">Student</option>
-                  <option value="parent" className="bg-background text-foreground">Parent</option>
-                  <option value="educator" className="bg-background text-foreground">Educator</option>
-                  <option value="other" className="bg-background text-foreground">Other</option>
-                </select>
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="w-full mt-2 btn-primary justify-center text-base sm:text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+            <>
+              <iframe name="hidden_iframe" id="hidden_iframe" style={{ display: "none" }}></iframe>
+              <form 
+                action="https://script.google.com/a/macros/hinovi.me/s/AKfycbx0BiwjHoNQI1Kgqi-qFsQO6JeFB5JIRoHi_JFOBjWSbgY7BeJQYVR6VIATBfaqbKgjcw/exec" 
+                method="POST" 
+                target="hidden_iframe" 
+                onSubmit={handleSubmit} 
+                className="space-y-5"
               >
-                {status === "submitting" ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    Submitting...
-                  </span>
-                ) : (
-                  <span>Join Waitlist</span>
-                )}
-              </button>
-            </form>
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
+                    placeholder="John Doe"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
+                    placeholder="john@example.com"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="role" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                    I am a...
+                  </label>
+                  <select
+                    id="role"
+                    name="role"
+                    value={formData.role}
+                    onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                    className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all appearance-none"
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+                  >
+                    <option value="student" className="bg-background text-foreground">Student</option>
+                    <option value="parent" className="bg-background text-foreground">Parent</option>
+                    <option value="educator" className="bg-background text-foreground">Educator</option>
+                    <option value="other" className="bg-background text-foreground">Other</option>
+                  </select>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === "submitting"}
+                  className="w-full mt-2 btn-primary justify-center text-base sm:text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {status === "submitting" ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Submitting...
+                    </span>
+                  ) : (
+                    <span>Join Waitlist</span>
+                  )}
+                </button>
+              </form>
+            </>
           )}
         </div>
       </div>
