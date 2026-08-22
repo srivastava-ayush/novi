@@ -303,7 +303,7 @@ export default function ComingSoon() {
             className="text-xs font-bold tracking-widest uppercase gradient-text"
             style={{ fontFamily: "var(--font-display)" }}
           >
-            Coming Soon
+            Coming Soon! 
           </span>
         </button>
       </header>
