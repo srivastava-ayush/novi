@@ -41,12 +41,17 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
     setStatus("submitting");
     
     try {
+      const formBody = new URLSearchParams();
+      formBody.append("name", formData.name);
+      formBody.append("email", formData.email);
+      formBody.append("role", formData.role);
+
       await fetch("https://script.google.com/a/macros/hinovi.me/s/AKfycbx0BiwjHoNQI1Kgqi-qFsQO6JeFB5JIRoHi_JFOBjWSbgY7BeJQYVR6VIATBfaqbKgjcw/exec", {
         method: "POST",
         mode: "no-cors",
-        body: JSON.stringify(formData),
+        body: formBody,
         headers: {
-          "Content-Type": "text/plain;charset=utf-8",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
       });
       setStatus("success");
