@@ -261,7 +261,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
 const MODULES = [
   {
     icon: "🧬",
-    title: "Career DNA Profiling",
+    title: "Career DNA Profiling ",
     description:
       "Unlock your unique strengths and discover careers that perfectly align with your personality.",
   },
