@@ -20,8 +20,45 @@ function FloatingOrb({
   );
 }
 
+const COUNTRY_CODES = [
+  { code: "+91", label: "India (+91)" },
+  { code: "+1", label: "US/Canada (+1)" },
+  { code: "+44", label: "UK (+44)" },
+  { code: "+61", label: "Australia (+61)" },
+  { code: "+971", label: "UAE (+971)" },
+  { code: "+65", label: "Singapore (+65)" },
+  { code: "+880", label: "Bangladesh (+880)" },
+  { code: "+55", label: "Brazil (+55)" },
+  { code: "+86", label: "China (+86)" },
+  { code: "+33", label: "France (+33)" },
+  { code: "+49", label: "Germany (+49)" },
+  { code: "+852", label: "Hong Kong (+852)" },
+  { code: "+62", label: "Indonesia (+62)" },
+  { code: "+39", label: "Italy (+39)" },
+  { code: "+81", label: "Japan (+81)" },
+  { code: "+60", label: "Malaysia (+60)" },
+  { code: "+52", label: "Mexico (+52)" },
+  { code: "+977", label: "Nepal (+977)" },
+  { code: "+31", label: "Netherlands (+31)" },
+  { code: "+64", label: "New Zealand (+64)" },
+  { code: "+92", label: "Pakistan (+92)" },
+  { code: "+63", label: "Philippines (+63)" },
+  { code: "+7", label: "Russia (+7)" },
+  { code: "+966", label: "Saudi Arabia (+966)" },
+  { code: "+27", label: "South Africa (+27)" },
+  { code: "+82", label: "South Korea (+82)" },
+  { code: "+34", label: "Spain (+34)" },
+  { code: "+94", label: "Sri Lanka (+94)" },
+  { code: "+41", label: "Switzerland (+41)" },
+  { code: "+886", label: "Taiwan (+886)" },
+  { code: "+66", label: "Thailand (+66)" },
+  { code: "+90", label: "Turkey (+90)" },
+  { code: "+380", label: "Ukraine (+380)" },
+  { code: "+84", label: "Vietnam (+84)" }
+];
+
 function WaitlistModal({ onClose }: { onClose: () => void }) {
-  const [formData, setFormData] = useState({ name: "", email: "", role: "student" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", countryCode: "+91", role: "student" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
 
   useEffect(() => {
@@ -143,6 +180,37 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
                     className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
                     placeholder="john@example.com"
                   />
+                </div>
+
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                    Phone Number
+                  </label>
+                  <div className="flex gap-2">
+                    <select
+                      value={formData.countryCode}
+                      onChange={(e) => setFormData({ ...formData, countryCode: e.target.value })}
+                      className="w-[120px] shrink-0 px-3 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all appearance-none"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.2em 1.2em' }}
+                    >
+                      {COUNTRY_CODES.map((country) => (
+                        <option key={country.label} className="bg-background text-foreground" value={country.code}>
+                          {country.code}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
+                      placeholder="9876543210"
+                    />
+                  </div>
+                  {/* Hidden input to combine country code and phone number for the actual form submission */}
+                  <input type="hidden" name="phone" value={`${formData.countryCode} ${formData.phone}`} />
                 </div>
                 
                 <div>
