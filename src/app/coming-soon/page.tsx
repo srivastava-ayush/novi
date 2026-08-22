@@ -3,15 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 
-const GOOGLE_FORM_URL =
-  "https://docs.google.com/forms/d/e/1FAIpQLSfIFN37OgwYsAEq7nAHNE5cg1DV0nO1Xtby5i3u1dcSA6lxaQ/viewform";
 
-function getEmbedUrl(url: string) {
-  if (!url) return "";
-  if (url.includes("embedded=")) return url;
-  const separator = url.includes("?") ? "&" : "?";
-  return `${url}${separator}embedded=true`;
-}
 
 function FloatingOrb({
   className,
@@ -29,6 +21,9 @@ function FloatingOrb({
 }
 
 function WaitlistModal({ onClose }: { onClose: () => void }) {
+  const [formData, setFormData] = useState({ name: "", email: "", role: "student" });
+  const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -41,6 +36,27 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
     };
   }, [onClose]);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("submitting");
+    
+    try {
+      await fetch("https://script.google.com/a/macros/hinovi.me/s/AKfycbx0BiwjHoNQI1Kgqi-qFsQO6JeFB5JIRoHi_JFOBjWSbgY7BeJQYVR6VIATBfaqbKgjcw/exec", {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(formData),
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      });
+      setStatus("success");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("Something went wrong while joining the waitlist. Please try again.");
+      setStatus("idle");
+    }
+  };
+
   return (
     <div
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/50 backdrop-blur-sm"
@@ -50,7 +66,7 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
       aria-label="Join the waitlist"
     >
       <div
-        className="relative w-full max-w-2xl glass-card rounded-3xl overflow-hidden animate-pop-in"
+        className="relative w-full max-w-xl glass-card rounded-3xl overflow-hidden animate-pop-in"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between px-6 py-4 border-b border-black/10 dark:border-white/10">
@@ -81,13 +97,95 @@ function WaitlistModal({ onClose }: { onClose: () => void }) {
             </svg>
           </button>
         </div>
-        <iframe
-          src={getEmbedUrl(GOOGLE_FORM_URL)}
-          className="w-full h-[520px] sm:h-[600px] bg-surface-elevated"
-          title="Novi waitlist form"
-        >
-          Loading…
-        </iframe>
+        
+        <div className="p-6 sm:p-8">
+          {status === "success" ? (
+            <div className="text-center py-10 animate-fade-in">
+              <div className="w-16 h-16 rounded-full bg-green-500/20 text-green-500 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-foreground mb-2" style={{ fontFamily: "var(--font-display)" }}>
+                You're on the list!
+              </h3>
+              <p className="text-foreground/70 mb-8">
+                Thank you for joining the Novi waitlist. We'll be in touch soon!
+              </p>
+              <button onClick={onClose} className="btn-primary">
+                <span>Close Window</span>
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label htmlFor="name" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                  Full Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
+                  placeholder="John Doe"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all"
+                  placeholder="john@example.com"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="role" className="block text-sm font-medium text-foreground/80 mb-1.5">
+                  I am a...
+                </label>
+                <select
+                  id="role"
+                  value={formData.role}
+                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  className="w-full px-4 py-3 rounded-xl bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 focus:outline-none focus:ring-2 focus:ring-primary/50 text-foreground transition-all appearance-none"
+                  style={{ backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`, backgroundPosition: 'right 0.5rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
+                >
+                  <option value="student" className="bg-background text-foreground">Student</option>
+                  <option value="parent" className="bg-background text-foreground">Parent</option>
+                  <option value="educator" className="bg-background text-foreground">Educator</option>
+                  <option value="other" className="bg-background text-foreground">Other</option>
+                </select>
+              </div>
+
+              <button
+                type="submit"
+                disabled={status === "submitting"}
+                className="w-full mt-2 btn-primary justify-center text-base sm:text-lg disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {status === "submitting" ? (
+                  <span className="flex items-center gap-2">
+                    <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Submitting...
+                  </span>
+                ) : (
+                  <span>Join Waitlist</span>
+                )}
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
