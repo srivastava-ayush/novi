@@ -140,17 +140,16 @@ export default function Home() {
   const revealRef = useScrollReveal();
 
   return (
-    // <div className="relative min-h-screen overflow-hidden">
-    //   <LandingCurtain />
-    //   <div className="mesh-gradient-bg" />
-    //   <NavBar />
-    //   <main className="relative z-10" ref={revealRef}>
-    //     <Hero />
-    //     <HowItWorks />
-    //     <ForStudents />
-    //   </main>
-    // </div>
-<ComingSoon/>
-
+    <div className="relative min-h-screen overflow-hidden">
+      <LandingCurtain />
+      <div className="mesh-gradient-bg" />
+      <NavBar />
+      <main className="relative z-10" ref={revealRef}>
+        <Hero />
+        <HowItWorks />
+        <ForStudents />
+      </main>
+    </div>
+ //<ComingSoon/>
   );
 }
