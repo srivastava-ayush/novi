@@ -74,7 +74,7 @@ export default function Hero() {
               </p>
 
               <div className="flex flex-wrap gap-4 animate-slide-in-left opacity-0 delay-400">
-                <a href="#" className="btn-primary">
+                <a href="/signup" className="btn-primary">
                   <span>Meet Novi</span>
                   <svg
                     className="w-4 h-4"
@@ -90,7 +90,7 @@ export default function Hero() {
                     />
                   </svg>
                 </a>
-                <a href="#" className="btn-secondary">
+                <a href="/signup" className="btn-secondary">
                   <svg
                     className="w-5 h-5"
                     fill="none"

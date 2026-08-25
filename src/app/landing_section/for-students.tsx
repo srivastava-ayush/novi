@@ -84,13 +84,13 @@ export default function ForStudents() {
               Meet Novi—the AI mentor that grows with you from Grade 9 to your dream university.
             </p>
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-              <a href="#" className="btn-primary">
+              <a href="/signup" className="btn-primary">
                 <span>Meet Novi</span>
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                 </svg>
               </a>
-              <a href="#" className="btn-secondary">
+              <a href="/signup" className="btn-secondary">
                 See how it works
               </a>
             </div>

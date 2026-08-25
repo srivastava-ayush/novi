@@ -73,12 +73,12 @@ function NavBar() {
         <div className="flex items-center gap-3">
           <ThemeToggle />
           <a
-            href="#"
+            href="/signup"
             className="hidden sm:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2"
           >
             Sign In
           </a>
-          <a href="#" className="btn-primary !py-2.5 !px-5 !text-sm">
+          <a href="/get-started" className="btn-primary !py-2.5 !px-5 !text-sm">
             Get Started
           </a>
         </div>
