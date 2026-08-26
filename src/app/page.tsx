@@ -4,6 +4,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import Hero from "./landing_section/hero";
 import HowItWorks from "./landing_section/how-it-works";
 import ForStudents from "./landing_section/for-students";
+import CareerDiscovery from "./landing_section/career-discovery";
+import CareerDetail from "./landing_section/career-detail";
 import { useTheme } from "./components/theme-provider";
 import ComingSoon from "./coming-soon/page";
 function ThemeToggle() {
@@ -127,7 +129,7 @@ function useScrollReveal() {
       { threshold: 0.1, rootMargin: "0px 0px -60px 0px" }
     );
 
-    const targets = el.querySelectorAll(".scroll-reveal, .scroll-reveal-scale, .stagger-reveal");
+    const targets = el.querySelectorAll(".scroll-reveal, .scroll-reveal-scale, .stagger-reveal, .cards-reveal");
     targets.forEach((t) => observer.observe(t));
 
     return () => observer.disconnect();
@@ -148,6 +150,8 @@ export default function Home() {
         <Hero />
         <HowItWorks />
         <ForStudents />
+        <CareerDiscovery />
+        <CareerDetail />
       </main>
     </div>
  //<ComingSoon/>
