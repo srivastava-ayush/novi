@@ -2,10 +2,20 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import ThemeToggle from "./ThemeToggle"
+
+const navItems = [
+  { label: "How It Works", href: "/#how-it-works" },
+  { label: "For Students", href: "/#for-students" },
+  { label: "For Parents", href: "/for-parents" },
+  { label: "Universities", href: "/#universities" },
+  { label: "About Us", href: "/#about-us" },
+]
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 20)
@@ -15,7 +25,6 @@ export default function NavBar() {
 
   return (
     <nav
-      // className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "glass-card py-3 shadow-lg backdrop-blur-xl bg-white/10 dark:bg-black/10 border-b border-white/10" : "bg-transparent py-5"}`}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled ? "py-3 bg-background/80 backdrop-blur-xl border-b border-foreground/10" : "bg-transparent py-5"}`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -31,16 +40,27 @@ export default function NavBar() {
           </span>
         </Link>
         <div className="hidden md:flex items-center gap-8">
-          {["How it Works", "For Students", "For Parents", "Universities", "About Us"].map((item) => (
-            <Link
-              key={item}
-              href={`/#${item.toLowerCase().replace(/\s+/g, '-')}`}
-              className="text-sm font-medium text-foreground/60 hover:text-foreground transition-colors relative group"
-            >
-              {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = pathname === item.href || (item.href === "/for-parents" && pathname?.startsWith("/for-parents"))
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-sm font-medium transition-colors relative group ${
+                  isActive 
+                    ? "text-purple-600 dark:text-purple-400 font-semibold" 
+                    : "text-foreground/60 hover:text-foreground"
+                }`}
+              >
+                {item.label}
+                <span 
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-purple-500 to-pink-500 transition-all duration-300 ${
+                    isActive ? "w-full" : "w-0 group-hover:w-full"
+                  }`} 
+                />
+              </Link>
+            )
+          })}
         </div>
 
         <div className="flex items-center gap-3">
@@ -50,7 +70,7 @@ export default function NavBar() {
             href="/signin"
             className="hidden sm:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2"
           >
-            Sign In
+            Log In
           </Link>
 
           <Link
