@@ -9,7 +9,7 @@ const navItems = [
   { label: "How It Works", href: "/#how-it-works" },
   { label: "For Students", href: "/for-students" },
   { label: "For Parents", href: "/for-parents" },
-  { label: "Universities", href: "/#universities" },
+  { label: "Universities", href: "/universities" },
   { label: "About Us", href: "/#about-us" },
 ]
 
@@ -44,7 +44,8 @@ export default function NavBar() {
             const isActive = 
               pathname === item.href || 
               (item.href === "/for-parents" && pathname?.startsWith("/for-parents")) ||
-              (item.href === "/for-students" && pathname?.startsWith("/for-students"))
+              (item.href === "/for-students" && pathname?.startsWith("/for-students")) ||
+              (item.href === "/universities" && pathname?.startsWith("/universities"))
             return (
               <Link
                 key={item.label}
