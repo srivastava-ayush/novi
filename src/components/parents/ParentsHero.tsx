@@ -87,29 +87,18 @@ export default function ParentsHero() {
             </div>
           </motion.div>
 
-          {/* Right Hero Graphic: Exactly Matching Image with Father & Daughter + Floating Dashboard Card */}
+          {/* Right Hero Graphic: Father & Daughter (Visible on Right) + Floating Dashboard Card (Left) */}
           <motion.div 
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            className="lg:col-span-7 relative flex items-center justify-end"
+            className="lg:col-span-7 relative flex items-center justify-start lg:justify-end py-6"
           >
-            {/* Main Composition Wrapper */}
-            <div className="relative w-full max-w-2xl flex items-center justify-end min-h-[440px] sm:min-h-[500px]">
+            {/* Main Composition Container */}
+            <div className="relative w-full max-w-[620px] flex items-center">
               
-              {/* Father & Daughter Cutout Image (Positioned Right Behind Card) */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[240px] sm:w-[320px] md:w-[360px] h-[360px] sm:h-[460px] z-0 pointer-events-none">
-                <Image
-                  src="/parents-daughter-tablet.jpg"
-                  alt="Father and daughter using Novi"
-                  fill
-                  priority
-                  className="object-contain object-right drop-shadow-xl"
-                />
-              </div>
-
-              {/* Floating White Telemetry Card (Positioned Left Overlapping) */}
-              <div className="relative z-10 w-full max-w-[430px] sm:max-w-[460px] rounded-[28px] bg-white dark:bg-[#12112a] border border-black/10 dark:border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.5)] p-5 sm:p-6 space-y-4">
+              {/* Floating White Telemetry Card (Positioned Left) */}
+              <div className="relative z-10 w-full max-w-[380px] sm:max-w-[420px] rounded-[28px] bg-white dark:bg-[#12112a] border border-black/10 dark:border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.14)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-6 space-y-4">
                 
                 {/* Profile Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
@@ -217,6 +206,18 @@ export default function ParentsHero() {
                 </div>
 
               </div>
+
+              {/* Father & Daughter Cutout Image (Positioned visibly on the Right) */}
+              <div className="block absolute -right-2 sm:right-2 md:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 w-[220px] sm:w-[280px] md:w-[320px] lg:w-[350px] h-[340px] sm:h-[420px] md:h-[460px] lg:h-[490px] z-20 pointer-events-none">
+                <Image
+                  src="/parents-daughter-tablet.png"
+                  alt="Father and daughter using Novi"
+                  fill
+                  priority
+                  className="object-contain drop-shadow-2xl"
+                />
+              </div>
+
             </div>
           </motion.div>
 
