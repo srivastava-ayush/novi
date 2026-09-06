@@ -7,7 +7,7 @@ import ThemeToggle from "./ThemeToggle"
 
 const navItems = [
   { label: "How It Works", href: "/#how-it-works" },
-  { label: "For Students", href: "/#for-students" },
+  { label: "For Students", href: "/for-students" },
   { label: "For Parents", href: "/for-parents" },
   { label: "Universities", href: "/#universities" },
   { label: "About Us", href: "/#about-us" },
@@ -41,7 +41,10 @@ export default function NavBar() {
         </Link>
         <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => {
-            const isActive = pathname === item.href || (item.href === "/for-parents" && pathname?.startsWith("/for-parents"))
+            const isActive = 
+              pathname === item.href || 
+              (item.href === "/for-parents" && pathname?.startsWith("/for-parents")) ||
+              (item.href === "/for-students" && pathname?.startsWith("/for-students"))
             return (
               <Link
                 key={item.label}
