@@ -3,7 +3,24 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+
+function Sparkle({
+  className,
+}: {
+  className?: string;
+}) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M12 2l1.9 5.7L19.6 9.6l-5.7 1.9L12 17.2l-1.9-5.7L4.4 9.6l5.7-1.9L12 2z" />
+    </svg>
+  );
+}
 
 export default function StudentsCTAFooter() {
   return (
@@ -11,17 +28,33 @@ export default function StudentsCTAFooter() {
       <div className="max-w-[1400px] mx-auto">
         
         {/* Dark Sleek CTA Banner Matching Homepage */}
-        <div className="relative rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 bg-[#0c0a1f] text-white shadow-2xl">
-          
-          {/* Ambient Purple Glow */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="relative rounded-3xl overflow-hidden border border-black/5 dark:border-white/10 bg-[#0c0a1f] text-white shadow-2xl"
+        >
+
+          {/* Decorative dot grid + ambient glows */}
+          <div className="absolute inset-0 bg-dots opacity-40" />
           <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute top-1/2 right-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Floating sparkles */}
+          <Sparkle className="absolute top-10 left-[12%] w-4 h-4 text-purple-400/60 animate-float" />
+          <Sparkle className="absolute bottom-16 right-[18%] w-5 h-5 text-cyan-400/50 animate-float-slow" />
+          <Sparkle className="absolute top-24 right-[8%] w-3 h-3 text-pink-400/60 animate-float" />
 
           <div className="grid lg:grid-cols-12 gap-8 items-center p-6 sm:p-12 relative z-10">
             
             {/* Left Column: 3D Characters */}
             <div className="lg:col-span-5 relative flex justify-center lg:justify-start">
-              <div className="relative w-full max-w-sm sm:max-w-md h-[280px] sm:h-[380px]">
+              {/* Gradient ring behind character */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] rounded-full border border-purple-500/20 animate-spin-slow">
+                <div className="absolute -top-1 left-1/2 w-3 h-3 rounded-full bg-purple-500/60" />
+              </div>
+              <div className="relative w-full max-w-sm sm:max-w-md h-[280px] sm:h-[380px] animate-float-slow">
                 <Image
                   src="/3dboy.png"
                   alt="Novi Student Mentors"
@@ -83,7 +116,7 @@ export default function StudentsCTAFooter() {
             </div>
 
           </div>
-        </div>
+        </motion.div>
 
         {/* Global Footer */}
         <footer className="mt-12 pt-8 border-t border-black/10 dark:border-foreground/10 text-sm">

@@ -3,10 +3,10 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  ArrowRight, 
-  CheckCircle2, 
-  Sparkles, 
+import {
+  ArrowRight,
+  CheckCircle2,
+  Sparkles,
   ChevronDown,
   Check
 } from "lucide-react";
@@ -19,9 +19,11 @@ export default function ParentsHero() {
 
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid lg:grid-cols-12 gap-8 items-center">
-          
+          <div className="absolute right-6 lg:right-16 top-1/2 -translate-y-1/2 w-[480px] h-[480px] rounded-full border border-purple-500/10 animate-spin-slow">
+            <div className="absolute -top-2 left-1/2 w-3 h-3 rounded-full bg-purple-500/50 blur-[1px]" />
+          </div>
           {/* Left Hero Content */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
@@ -33,7 +35,7 @@ export default function ParentsHero() {
             </div>
 
             {/* Main Headline */}
-            <h1 
+            <h1
               className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight text-foreground leading-[1.1]"
               style={{ fontFamily: "var(--font-display)" }}
             >
@@ -88,7 +90,7 @@ export default function ParentsHero() {
           </motion.div>
 
           {/* Right Hero Graphic: Father & Daughter (Visible on Right) + Floating Dashboard Card (Left) */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
@@ -96,10 +98,10 @@ export default function ParentsHero() {
           >
             {/* Main Composition Container */}
             <div className="relative w-full max-w-[620px] flex items-center">
-              
+
               {/* Floating White Telemetry Card (Positioned Left) */}
               <div className="relative z-10 w-full max-w-[380px] sm:max-w-[420px] rounded-[28px] bg-white dark:bg-[#12112a] border border-black/10 dark:border-white/10 shadow-[0_25px_60px_rgba(0,0,0,0.14)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.6)] p-5 sm:p-6 space-y-4">
-                
+
                 {/* Profile Header */}
                 <div className="flex items-center justify-between pb-3 border-b border-black/5 dark:border-white/5">
                   <div className="flex items-center gap-3">
@@ -172,7 +174,7 @@ export default function ParentsHero() {
 
                 {/* Split Bottom: Focus & Novi Insight Card */}
                 <div className="grid sm:grid-cols-12 gap-3 pt-1 items-stretch">
-                  
+
                   {/* Left: Focus List */}
                   <div className="sm:col-span-6 space-y-2 py-1">
                     <h5 className="text-[11px] font-extrabold text-gray-800 dark:text-gray-200">This Month&apos;s Focus</h5>
@@ -208,7 +210,7 @@ export default function ParentsHero() {
               </div>
 
               {/* Father & Daughter Cutout Image (Positioned visibly on the Right) */}
-              <div className="block absolute -right-2 sm:right-2 md:-right-4 lg:-right-6 top-1/2 -translate-y-1/2 w-[220px] sm:w-[280px] md:w-[320px] lg:w-[350px] h-[340px] sm:h-[420px] md:h-[460px] lg:h-[490px] z-20 pointer-events-none">
+              <div className="block absolute -right-2 sm:right-2 md:-right-4 -bottom-20 lg:-right-6 top-1/2 -translate-y-1/2 w-[220px] sm:w-[280px] md:w-[320px] lg:w-[350px] h-[340px] sm:h-[420px] md:h-[460px] lg:h-[490px] z-20 pointer-events-none">
                 <Image
                   src="/parents-daughter-tablet.png"
                   alt="Father and daughter using Novi"
