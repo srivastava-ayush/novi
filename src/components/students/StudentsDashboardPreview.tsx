@@ -248,26 +248,7 @@ export default function StudentsDashboardPreview() {
                 </span>
               </motion.div>
 
-              {/* Floating growth chip */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-                className="absolute -bottom-5 right-8 z-20 flex items-center gap-2 px-3.5 py-2.5 rounded-2xl gradient-border bg-white dark:bg-[#1a183c] shadow-xl animate-float-slow"
-              >
-                <div className="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-500 flex items-center justify-center">
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
-                <div className="text-[11px] leading-tight">
-                  <p className="font-extrabold text-gray-900 dark:text-white">
-                    +18% action score
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    vs last month
-                  </p>
-                </div>
-              </motion.div>
+          
             </div>
           </motion.div>
 
