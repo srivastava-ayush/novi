@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ApiError, sendModule1Message } from "@/lib/api";
+import { ApiError, sendModule1Message, getOnboardingProfile, type Module1ChatResponse } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { RequireRole } from "@/components/auth-guard";
 import NoviMark from "@/components/novi-mark";
@@ -62,7 +62,39 @@ function MessageBubble({ message }: { message: ChatMessage }) {
   );
 }
 
-function ChatScreen() {
+function OnboardingProgress({ completionPercentage, missingCategories }: { completionPercentage: number; missingCategories: string[] }) {
+  return (
+    <div className="mb-4 p-4 rounded-xl bg-surface-elevated border border-black/5 dark:border-white/10">
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm font-medium">Onboarding Progress</span>
+        <span className="text-sm font-bold text-primary">{completionPercentage}%</span>
+      </div>
+      <div className="h-2 w-full bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
+          style={{ width: `${completionPercentage}%` }}
+        />
+      </div>
+      {missingCategories.length > 0 && (
+        <div className="mt-3">
+          <p className="text-xs text-foreground/60 mb-1">Still exploring:</p>
+          <div className="flex flex-wrap gap-1.5">
+            {missingCategories.map((cat) => (
+              <span
+                key={cat}
+                className="px-2.5 py-1 text-xs rounded-full bg-primary/10 text-primary/80"
+              >
+                {cat.replace(/_/g, " ")}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function OnboardingChatScreen() {
   const { user, logout } = useAuth();
   const router = useRouter();
 
@@ -74,6 +106,9 @@ function ChatScreen() {
   const [error, setError] = useState<string | null>(null);
   const [lastSent, setLastSent] = useState<string | null>(null);
   const [conversationId, setConversationId] = useState<string | null>(null);
+  const [onboardingStatus, setOnboardingStatus] = useState("in_progress");
+  const [completionPercentage, setCompletionPercentage] = useState(0);
+  const [missingCategories, setMissingCategories] = useState<string[]>([]);
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -82,15 +117,33 @@ function ChatScreen() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages, awaitingReply, error]);
 
+  const loadOnboardingProfile = useCallback(async () => {
+    try {
+      const profile = await getOnboardingProfile();
+      setCompletionPercentage(profile.completion_percentage);
+      setMissingCategories(profile.missing_categories);
+      setOnboardingStatus(profile.onboarding_complete ? "completed" : "in_progress");
+    } catch {
+      // Silently fail on profile load
+    }
+  }, []);
+
+  useEffect(() => {
+    loadOnboardingProfile();
+  }, [loadOnboardingProfile]);
+
   const deliver = useCallback(
     async (text: string) => {
       setError(null);
       setAwaitingReply(true);
       try {
-const response = await sendModule1Message(text, conversationId ?? undefined);
-      setConversationId(response.conversation_id);
-      setMessages((prev) => [...prev, { id: makeId(), author: "novi", content: response.response }]);
-      setLastSent(null);
+        const response = await sendModule1Message(text, conversationId ?? undefined);
+        setMessages((prev) => [...prev, { id: makeId(), author: "novi", content: response.response }]);
+        setConversationId(response.conversation_id);
+        setOnboardingStatus(response.onboarding_status);
+        setCompletionPercentage(response.completion_percentage);
+        setMissingCategories(response.missing_categories);
+        setLastSent(null);
       } catch (err) {
         if (err instanceof ApiError && err.status === 401) {
           router.replace("/login");
@@ -157,14 +210,14 @@ const response = await sendModule1Message(text, conversationId ?? undefined);
                 className="font-bold leading-tight tracking-tight"
                 style={{ fontFamily: "var(--font-display)" }}
               >
-                Novi
+                Novi Onboarding
               </p>
               <p className="flex items-center gap-1.5 text-xs text-foreground/50">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60 animate-ping" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                Your AI mentor — always here to chat
+                Your AI mentor — getting to know you
               </p>
             </div>
           </div>
@@ -198,6 +251,10 @@ const response = await sendModule1Message(text, conversationId ?? undefined);
 
       <main className="flex-1 overflow-y-auto scroll-smooth" aria-live="polite">
         <div className="mx-auto w-full max-w-3xl px-4 py-6 space-y-4">
+          <OnboardingProgress
+            completionPercentage={completionPercentage}
+            missingCategories={missingCategories}
+          />
           {messages.map((message) => (
             <MessageBubble key={message.id} message={message} />
           ))}
@@ -256,10 +313,10 @@ const response = await sendModule1Message(text, conversationId ?? undefined);
   );
 }
 
-export default function ChatView() {
+export default function OnboardingPage() {
   return (
     <RequireRole role="student">
-      <ChatScreen />
+      <OnboardingChatScreen />
     </RequireRole>
   );
 }

@@ -160,24 +160,68 @@ export async function logout(): Promise<void> {
   }
 }
 
-export async function sendChatMessage(message: string): Promise<string> {
-  const data = await request<{ message?: unknown }>("/api/chat/message", {
-    method: "POST",
-    body: JSON.stringify({ message }),
-  });
-  const reply = data?.message;
-  if (typeof reply !== "string" || !reply.trim()) {
-    throw new ApiError(
-      502,
-      "Novi's reply got lost on the way. Please send that again."
-    );
-  }
-  return reply;
-}
-
 export function googleOAuthUrl(nextPath?: string): string {
   const params = new URLSearchParams();
   if (nextPath) params.set("next", nextPath);
   const query = params.toString();
   return `${API_URL}/api/auth/google${query ? `?${query}` : ""}`;
+}
+
+export interface Module1ChatResponse {
+  response: string;
+  conversation_id: string;
+  onboarding_status: string;
+  completion_percentage: number;
+  missing_categories: string[];
+  llm_provider: string;
+}
+
+export async function sendModule1Message(
+  message: string,
+  conversationId?: string
+): Promise<Module1ChatResponse> {
+  const data = await request<Module1ChatResponse>("/api/module1/chat", {
+    method: "POST",
+    body: JSON.stringify({
+      message,
+      conversation_id: conversationId,
+      conversation_type: "onboarding",
+    }),
+  });
+  if (!data) {
+    throw new ApiError(502, "No response from Module 1 chat");
+  }
+  return data;
+}
+
+export interface Module1Memory {
+  id: string;
+  memory_type: string;
+  memory_key: string;
+  value: string;
+  normalized_value: string | null;
+  confidence: number;
+  importance: number;
+  source: string;
+  is_active: boolean;
+  version: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getModule1Memories(): Promise<Module1Memory[]> {
+  return request<Module1Memory[]>("/api/module1/memories");
+}
+
+export interface OnboardingProfile {
+  profile: Record<string, unknown>;
+  known_categories: string[];
+  completed_categories: string[];
+  missing_categories: string[];
+  completion_percentage: number;
+  onboarding_complete: boolean;
+}
+
+export async function getOnboardingProfile(): Promise<OnboardingProfile> {
+  return request<OnboardingProfile>("/api/module1/onboarding/profile");
 }
