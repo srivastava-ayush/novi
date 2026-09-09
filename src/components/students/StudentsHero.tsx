@@ -78,14 +78,14 @@ export default function StudentsHero() {
             {/* CTA Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
               <Link
-                href="/signin"
+                href="/login"
                 className="inline-flex items-center gap-2 px-7 py-4 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-purple-600/30 hover:shadow-purple-600/45 hover:-translate-y-0.5 group"
               >
                 <span>Meet Novi</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                href="/signin"
+                href="/login"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl border border-foreground/10 bg-surface/70 dark:bg-surface-elevated/40 backdrop-blur-sm hover:bg-surface text-foreground font-semibold text-sm transition-all duration-300 shadow-sm hover:-translate-y-0.5"
               >
                 Explore Student Dashboard

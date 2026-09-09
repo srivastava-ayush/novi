@@ -52,7 +52,7 @@ export default function ParentsHero() {
             {/* CTA Buttons */}
             <div className="pt-2 flex flex-wrap items-center gap-4">
               <Link
-                href="/signin"
+                href="/login"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-purple-600/25 hover:shadow-purple-600/40 group"
               >
                 <span>Explore Parent Dashboard</span>

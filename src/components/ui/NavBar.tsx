@@ -71,7 +71,7 @@ export default function NavBar() {
           <ThemeToggle />
 
           <Link
-            href="/signin"
+            href="/login"
             className="hidden sm:inline-flex text-sm font-medium text-foreground/70 hover:text-foreground transition-colors px-4 py-2"
           >
             Log In

@@ -82,7 +82,7 @@ export default function StudentsCTAFooter() {
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm transition-all duration-300 shadow-lg shadow-purple-600/30 hover:scale-[1.02] group"
                 >
                   <span>Get Started with Novi</span>
@@ -90,7 +90,7 @@ export default function StudentsCTAFooter() {
                 </Link>
 
                 <Link
-                  href="/signin"
+                  href="/login"
                   className="inline-flex items-center justify-center px-6 py-3.5 rounded-2xl border border-white/20 hover:border-white/40 bg-white/5 hover:bg-white/10 text-white font-semibold text-sm transition-all duration-300 backdrop-blur-md"
                 >
                   Explore Student Dashboard

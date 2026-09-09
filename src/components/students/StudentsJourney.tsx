@@ -96,7 +96,7 @@ export default function StudentsJourney() {
 
             <div>
               <Link
-                href="/signin"
+                href="/login"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm transition-all shadow-lg shadow-purple-600/25 hover:-translate-y-0.5 group"
               >
                 <span>See the Full Journey</span>
