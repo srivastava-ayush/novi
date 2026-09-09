@@ -62,7 +62,7 @@ function MemoryCard({ memory }: { memory: Module1Memory }) {
 }
 
 function MemoriesPage() {
-  const { status, user } = useAuth();
+  const { status } = useAuth();
   const router = useRouter();
   const [memories, setMemories] = useState<Module1Memory[]>([]);
   const [loading, setLoading] = useState(true);

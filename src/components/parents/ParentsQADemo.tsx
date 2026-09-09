@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { MessageSquare, ArrowRight, Sparkles, User } from "lucide-react";
+import { MessageSquare, ArrowRight, User } from "lucide-react";
 
 interface QAPair {
   question: string;

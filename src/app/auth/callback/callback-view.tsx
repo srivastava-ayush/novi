@@ -1,19 +1,11 @@
 "use client";
 
-import { useEffect, use, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth, homeForRole } from "@/lib/auth-context";
 import { FullPageLoader } from "@/components/auth-guard";
 import NoviMark from "@/components/novi-mark";
-
-type SearchParams = Record<string, string | string[] | undefined>;
-
-function firstString(value: string | string[] | undefined): string | null {
-  if (typeof value === "string") return value;
-  if (Array.isArray(value) && typeof value[0] === "string") return value[0];
-  return null;
-}
 
 function friendlyOAuthError(code: string): string {
   switch (code) {
@@ -27,22 +19,24 @@ function friendlyOAuthError(code: string): string {
   }
 }
 
-export default function CallbackView({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>;
-}) {
-  const params = use(searchParams);
+export default function CallbackView() {
   const { refresh } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const started = useRef(false);
 
-  // Derived during render — no setState needed for this branch.
-  const oauthError = firstString(params.error);
-
   useEffect(() => {
-    if (started.current || oauthError) return;
+    const params = new URLSearchParams(window.location.search);
+    const oauthError = params.get("error");
+
+    if (oauthError) {
+      // URL param is only visible client-side on this statically-exported page.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setError(friendlyOAuthError(oauthError));
+      return;
+    }
+
+    if (started.current) return;
     started.current = true;
 
     // FastAPI set the session cookie during the OAuth callback —
@@ -51,10 +45,10 @@ export default function CallbackView({
       if (user) router.replace(homeForRole(user.role));
       else setError("We couldn't complete your Google sign-in. Please try again.");
     });
-  }, [oauthError, refresh, router]);
+  }, [refresh, router]);
 
-  if (oauthError || error) {
-    const message = oauthError ? friendlyOAuthError(oauthError) : error;
+  if (error) {
+    const message = error;
     return (
       <div className="hero-gradient min-h-dvh grid place-items-center px-4">
         <div className="glass-card rounded-3xl p-8 sm:p-10 max-w-md w-full text-center animate-pop-in">

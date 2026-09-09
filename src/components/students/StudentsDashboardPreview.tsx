@@ -9,7 +9,6 @@ import {
   GraduationCap,
   Route,
   MessageSquare,
-  ArrowUpRight,
   Sparkles,
   Lock,
 } from "lucide-react";

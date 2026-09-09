@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
-import dynamic from 'next/dynamic'
+import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from 'framer-motion'
 import BackgroundParticles from "@/components/3d/BackgroundParticles"
 import { Magnetic } from "@/components/ui/Magnetic"
 
@@ -163,8 +162,8 @@ export default function Hero() {
               
               <motion.div
                 style={{ 
-                  rotateX: rotateX as any,
-                  rotateY: rotateY as any,
+                  rotateX: rotateX as MotionValue<number>,
+                  rotateY: rotateY as MotionValue<number>,
                 }}
                 className="w-full h-full transition-transform duration-200"
               >

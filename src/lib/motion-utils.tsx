@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useInView } from 'framer-motion'
 
 export const EASE = [0.22, 1, 0.36, 1]
 export const EASE_OUT = [0.0, 0, 0.2, 1]
@@ -65,7 +65,6 @@ export function useCountUp(targetValue: number, duration = 2000) {
     if (!isInView) return
 
     let startTime: number
-    const startValue = 0
 
     const updateValue = (timestamp: number) => {
       if (!startTime) startTime = timestamp

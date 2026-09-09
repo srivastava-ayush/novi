@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
-import { ApiError, sendModule1Message, getOnboardingProfile, type Module1ChatResponse } from "@/lib/api";
+import { ApiError, sendModule1Message, getOnboardingProfile } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 import { RequireRole } from "@/components/auth-guard";
 import NoviMark from "@/components/novi-mark";
@@ -106,7 +106,6 @@ function OnboardingChatScreen() {
   const [error, setError] = useState<string | null>(null);
   const [lastSent, setLastSent] = useState<string | null>(null);
   const [conversationId, setConversationId] = useState<string | null>(null);
-  const [onboardingStatus, setOnboardingStatus] = useState("in_progress");
   const [completionPercentage, setCompletionPercentage] = useState(0);
   const [missingCategories, setMissingCategories] = useState<string[]>([]);
 
@@ -122,13 +121,14 @@ function OnboardingChatScreen() {
       const profile = await getOnboardingProfile();
       setCompletionPercentage(profile.completion_percentage);
       setMissingCategories(profile.missing_categories);
-      setOnboardingStatus(profile.onboarding_complete ? "completed" : "in_progress");
     } catch {
       // Silently fail on profile load
     }
   }, []);
 
   useEffect(() => {
+    // Load the saved onboarding profile once the student is signed in.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadOnboardingProfile();
   }, [loadOnboardingProfile]);
 
@@ -140,7 +140,6 @@ function OnboardingChatScreen() {
         const response = await sendModule1Message(text, conversationId ?? undefined);
         setMessages((prev) => [...prev, { id: makeId(), author: "novi", content: response.response }]);
         setConversationId(response.conversation_id);
-        setOnboardingStatus(response.onboarding_status);
         setCompletionPercentage(response.completion_percentage);
         setMissingCategories(response.missing_categories);
         setLastSent(null);

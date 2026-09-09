@@ -54,7 +54,7 @@ export default function ParentsJourneyMap() {
             className="lg:col-span-8 p-6 sm:p-8 rounded-3xl bg-surface/70 dark:bg-surface-elevated/40 border border-foreground/10 shadow-xl overflow-x-auto"
           >
             <div className="flex items-center gap-2 sm:gap-3 min-w-max py-2">
-              {nodes.map((node, i) => {
+              {nodes.map((node) => {
                 const Icon = node.icon;
                 return (
                   <div key={node.label} className="flex items-center gap-2 sm:gap-3">

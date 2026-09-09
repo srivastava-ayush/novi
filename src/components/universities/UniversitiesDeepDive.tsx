@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Clock, Building2, Users, Heart, Sparkles, TrendingUp } from "lucide-react";
+import { Clock, Building2, Users, Heart, TrendingUp } from "lucide-react";
 
 export default function UniversitiesDeepDive() {
   const [activeTab, setActiveTab] = useState("Overview");

@@ -7,6 +7,8 @@ export default function ThemeToggle() {
   const { theme, toggle } = useTheme()
   const [mounted, setMounted] = useState(false)
 
+  // Client-only hydration gate: server HTML shows a placeholder until mounted.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMounted(true) }, [])
   if (!mounted) {
     return (

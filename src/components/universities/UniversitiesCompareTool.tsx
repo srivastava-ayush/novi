@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
 import { Scale, ArrowRight, Trash2, Plus, CheckCircle2 } from "lucide-react";
 
 interface SlotItem {

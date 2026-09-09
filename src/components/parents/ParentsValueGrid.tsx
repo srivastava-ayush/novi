@@ -4,16 +4,8 @@ import { motion } from "framer-motion";
 import { 
   CheckCircle2, 
   TrendingUp, 
-  Target, 
-  Sparkles, 
-  HelpCircle,
   Compass,
   Star,
-  GraduationCap,
-  Layers,
-  Calendar,
-  Award,
-  Zap
 } from "lucide-react";
 
 export default function ParentsValueGrid() {

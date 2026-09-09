@@ -6,11 +6,6 @@ export const metadata: Metadata = {
   description: "Tell Novi who you are so we can tailor everything to you.",
 };
 
-export default async function OnboardPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ source?: string }>;
-}) {
-  const params = await searchParams;
-  return <OnboardView isGoogleSignup={params.source === "google"} />;
+export default function OnboardPage() {
+  return <OnboardView />;
 }

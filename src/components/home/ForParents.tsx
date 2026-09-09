@@ -3,7 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { CheckCircle2, ShieldCheck, ArrowUpRight, TrendingUp, Sparkles, Quote, ArrowLeft, ArrowRight } from "lucide-react";
+import { CheckCircle2, ShieldCheck, ArrowUpRight, TrendingUp, ArrowLeft, ArrowRight } from "lucide-react";
 
 const testimonials = [
   {

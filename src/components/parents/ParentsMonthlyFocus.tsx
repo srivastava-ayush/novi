@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle2, Lightbulb, Sparkles } from "lucide-react";
+import { CheckCircle2, Lightbulb } from "lucide-react";
 
 export default function ParentsMonthlyFocus() {
   return (

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 
 const steps = [
@@ -220,7 +220,7 @@ export default function HowItWorks() {
             <div>
               <h3 className="font-bold text-lg mb-1 text-emerald-400">Novi remembers the context.</h3>
               <p className="text-sm sm:text-base text-foreground/40 leading-relaxed">
-                Your goals, interests, decisions and progress build on each other—so you don't have to start from zero every time.
+                Your goals, interests, decisions and progress build on each other—so you don&apos;t have to start from zero every time.
               </p>
             </div>
           </div>

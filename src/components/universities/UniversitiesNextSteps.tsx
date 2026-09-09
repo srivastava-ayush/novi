@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { FolderGit2, Sparkles, Building, ArrowRight } from "lucide-react";
 
 export default function UniversitiesNextSteps() {

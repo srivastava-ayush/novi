@@ -10,7 +10,6 @@ import {
   Sparkles,
   CheckCircle2,
   Target,
-  Star,
 } from "lucide-react";
 
 const stats = [

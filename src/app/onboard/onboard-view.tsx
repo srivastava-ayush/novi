@@ -17,15 +17,23 @@ function isUserRole(value: unknown): value is UserRole {
   return value === "student" || value === "parent";
 }
 
-export default function OnboardView({
-  isGoogleSignup = false,
-}: {
-  isGoogleSignup?: boolean;
-}) {
+export default function OnboardView() {
   const { status, user, refresh } = useAuth();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState<UserRole | null>(null);
+  const [isGoogleSignup, setIsGoogleSignup] = useState<boolean | null>(null);
+
+  // The frontend is statically exported, so the backend's OAuth redirect
+  // (`?source=google`) is only visible in the browser. Detect it on mount
+  // before any redirect logic runs.
+  useEffect(() => {
+    // URL param is only visible client-side on this statically-exported page.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setIsGoogleSignup(
+      new URLSearchParams(window.location.search).get("source") === "google"
+    );
+  }, []);
 
   // Password-flow users already have a session and may have picked a role
   // earlier. Google signups arrive WITHOUT a session — the pending signup
@@ -38,6 +46,7 @@ export default function OnboardView({
 
   // Google signups are unauthenticated by design until onboarding completes.
   useEffect(() => {
+    if (isGoogleSignup === null) return;
     if (isGoogleSignup) return;
     if (status === "unauthenticated") {
       router.replace("/login");
@@ -45,6 +54,10 @@ export default function OnboardView({
       router.replace(homeForRole(user.role));
     }
   }, [isGoogleSignup, status, settled, user, router]);
+
+  if (isGoogleSignup === null) {
+    return <FullPageLoader />;
+  }
 
   async function handleSelect(role: UserRole) {
     if (submitting) return;

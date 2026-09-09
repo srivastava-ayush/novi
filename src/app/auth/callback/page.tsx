@@ -5,12 +5,6 @@ export const metadata: Metadata = {
   title: "Signing you in · Novi",
 };
 
-type SearchParams = Record<string, string | string[] | undefined>;
-
-export default async function AuthCallbackPage({
-  searchParams,
-}: {
-  searchParams: Promise<SearchParams>;
-}) {
-  return <CallbackView searchParams={searchParams} />;
+export default function AuthCallbackPage() {
+  return <CallbackView />;
 }

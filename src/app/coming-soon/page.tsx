@@ -169,11 +169,11 @@ export default function Home() {
                 ) : (
                   <div>
                     <div className="input-group">
-                      <label htmlFor="student-name">Student's Name</label>
+                      <label htmlFor="student-name">Student&apos;s Name</label>
                       <input type="text" id="student-name" placeholder="e.g., Sarah Johnson" />
                     </div>
                     <div className="input-group">
-                      <label htmlFor="parent-grade">Student's Grade</label>
+                      <label htmlFor="parent-grade">Student&apos;s Grade</label>
                       <select id="parent-grade">
                         <option value="">Select Grade</option>
                         <option value="Grade 9">Grade 9</option>

@@ -398,7 +398,7 @@ export default function Universities() {
             </div>
 
             <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight text-foreground/90">
-              Don't just find
+              Don&apos;t just find
               <br />
               a university.
               <br />
@@ -493,7 +493,7 @@ export default function Universities() {
                   </div>
                 </motion.div>
               </AnimatePresence>
-              {filteredUniversities.map((uni, idx) => {
+              {filteredUniversities.map((uni) => {
                 if (uni.name === universities[activeIndex].name) return null
 
                 return (
