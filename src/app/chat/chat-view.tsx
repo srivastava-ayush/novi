@@ -77,6 +77,7 @@ function ChatScreen() {
 
   const bottomRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const sendingRef = useRef(false);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -112,17 +113,23 @@ const response = await sendModule1Message(text, conversationId ?? undefined);
   function handleSend(e?: FormEvent) {
     e?.preventDefault();
     const text = input.trim();
-    if (!text || awaitingReply) return;
+    if (!text || awaitingReply || sendingRef.current) return;
+    sendingRef.current = true;
     setMessages((prev) => [...prev, { id: makeId(), author: "student", content: text }]);
     setInput("");
     if (textareaRef.current) textareaRef.current.style.height = "auto";
-    void deliver(text);
+    void deliver(text).finally(() => {
+      sendingRef.current = false;
+    });
   }
 
   function handleRetry() {
-    if (!lastSent || awaitingReply) return;
+    if (!lastSent || awaitingReply || sendingRef.current) return;
     setError(null);
-    void deliver(lastSent);
+    sendingRef.current = true;
+    void deliver(lastSent).finally(() => {
+      sendingRef.current = false;
+    });
   }
 
   function handleKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
